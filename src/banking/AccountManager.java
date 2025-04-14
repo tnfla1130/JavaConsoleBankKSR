@@ -89,13 +89,16 @@ public class AccountManager {
 		System.out.print("입금액 : ");
 		Money = BankingSystemMain.scan.nextInt();
 		BankingSystemMain.scan.nextLine();
+		if(Money<0) 
 		for(Account account : acc) {
 			if (account == null) continue;
 			if(accNum.equals(account.acc_num)) {
+				
 				if(account instanceof NormalAccount) {
 					NormalAccount normal = (NormalAccount) account;
 					account.balnc = normal.cal_rate(account.balnc,Money);
 				}
+				
 				else if (account instanceof HighCreditAccount) {
 					HighCreditAccount high = (HighCreditAccount) account;
 					account.balnc = high.cal_rate(account.balnc,Money);

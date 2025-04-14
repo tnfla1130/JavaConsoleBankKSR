@@ -1,6 +1,6 @@
 package banking;
 
-public class Account {
+public abstract class Account {
 
 	String acc_num;
 	String name;
