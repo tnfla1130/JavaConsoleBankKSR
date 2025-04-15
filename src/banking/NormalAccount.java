@@ -2,19 +2,22 @@ package banking;
 
 public class NormalAccount extends Account{
 
-	int baseRate;
+	private int baseRate;
 	int money, deposit;
-	int cal=0;
 	
 	public NormalAccount(String acc_num, String name, int balnc, int baseRate) {
 		super(acc_num, name, balnc);
 		this.baseRate = baseRate;
 	}
+	public int getBaseRate() {
+		return baseRate;
+	}
+	
 	
 	@Override
 	public void showAccInfo() {
 		super.showAccInfo();
-		System.out.println("기본이자 : "+ baseRate);
+		System.out.println("기본이자 : "+ baseRate+ "%");
 		System.out.println("----------------------");
 	}
 	
@@ -24,5 +27,6 @@ public class NormalAccount extends Account{
 		return (int)Math.floor(money + ( money * baseRate/100 ) + deposit);
 		
 	}
+
 	
 }

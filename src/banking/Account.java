@@ -1,16 +1,43 @@
 package banking;
 
-public abstract class Account {
+import java.io.Serializable;
 
-	String acc_num;
-	String name;
-	int balnc;
+public abstract class Account implements Serializable {
+	
+	private String acc_num;
+	private String name;
+	private int balnc;
 	
 	//생성자
 	public Account(String acc_num, String name, int balnc) {
 		this.acc_num = acc_num;
 		this.name = name;
 		this.balnc = balnc;
+	}
+	
+	public String getAcc_num() {
+		return acc_num;
+	}
+	public String getName() {
+		return name;
+	}
+
+	public int getBalnc() {
+		return balnc;
+	}
+	public void setBalnc(int balnc) {
+		this.balnc = balnc;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Account ac = (Account) obj;
+		if (this.acc_num.equals(ac.acc_num)) return true;
+		else return false;
+	}
+	@Override
+	public int hashCode() {
+	    return getAcc_num().hashCode();
 	}
 	
 	public void showAccInfo() {
