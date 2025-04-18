@@ -35,15 +35,16 @@ public class HighCreditAccount extends Account{
 	
 	@Override
 	public void showAccInfo() {
+		System.out.println("----------------------");
+		System.out.println("신용신뢰계좌");
 		super.showAccInfo();
 		System.out.println("기본이자 : "+ baseRate+ "%");
 		System.out.println("신용등급 : " + grade);
 
 		
 	}
-	
 	@Override
-	public int cal_rate(int money, int deposit) {
+	public void deposit(Account account, int money, int deposit) {
 		switch(grade) {
 		case 'A':
 		case 'a':
@@ -65,8 +66,9 @@ public class HighCreditAccount extends Account{
 			cal=money;
 			break;
 		}	
-		return cal;
+		account.setBalnc(cal);
+		System.out.println("HighCreditAccount");
+		System.out.println("입금이 완료되었습니다.");
 	}
-	
 	
 }

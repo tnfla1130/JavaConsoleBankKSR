@@ -23,6 +23,8 @@ public class NormalAccount extends Account{
 	
 	@Override
 	public void showAccInfo() {
+		System.out.println("----------------------");
+		System.out.println("보통계좌");
 		super.showAccInfo();
 		System.out.println("기본이자 : "+ baseRate+ "%");
 		
@@ -30,9 +32,12 @@ public class NormalAccount extends Account{
 	
 	
 	@Override
-	public int cal_rate(int money, int deposit) {
-		return (int)Math.floor(money + ( money * baseRate/100 ) + deposit);
-		
+	public void deposit(Account account, int money, int deposit) {
+		int cal_rate =  (int)Math.floor(money + ( money * getBaseRate()/100 ) 
+				+ deposit);
+		account.setBalnc(cal_rate);
+		System.out.println("NormalAccount");
+		System.out.println("입금이 완료되었습니다.");
 	}
 
 	

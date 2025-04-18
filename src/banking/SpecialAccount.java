@@ -16,13 +16,30 @@ public class SpecialAccount extends NormalAccount{
 	
 	@Override
 	public void showAccInfo() {
+		System.out.println("----------------------");
+		System.out.println("특판계좌");
 		super.showAccInfo();
 	}
 	
 	@Override
-	public int cal_rate(int money, int deposit) {
-		return (int)Math.floor(money + ( money * getBaseRate()/100 ) + deposit);
-		
+	public void deposit(Account account, int money, int deposit) {
+		int depositNum = 0;
+		int cal_rate =  (int)Math.floor(money + ( money * getBaseRate()/100 ) 
+					+ deposit);
+		account.setBalnc(cal_rate);
+		depositNum++;
+		System.out.println("SpecialAccount");
+		if (depositNum%2 ==0) {
+			System.out.println(depositNum);
+			account.setBalnc(account.getBalnc()+500);
+			System.out.printf("%d번째 입금. 축하금 500원을 지급합니다.",depositNum);
+			System.out.println("입금이 완료되었습니다.");
+		}
+		else {							
+			System.out.println(depositNum);
+			System.out.printf("%d번째 입금.",depositNum);
+			System.out.println("입금이 완료되었습니다.");
+		}
 	}
 
 }

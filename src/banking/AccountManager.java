@@ -11,6 +11,7 @@ public class AccountManager {
 	
 	//정보 카운트용 변수 생성 
 	private int numAcc;
+	
 	int depositNum=0;
 	private HashSet<Account> acc = new HashSet<>();
 	//생성자 
@@ -24,6 +25,11 @@ public class AccountManager {
  
 	public void makeAccount() {
 		int choice;
+		int returnNum=0;
+		String acc_num, name;
+		int balnc, rate;
+		char grade;
+		Account accountToAdd = null;
 		System.out.println();
 		System.out.println("***신규계좌개설***");
 		System.out.println("-----계좌선택------");
@@ -34,163 +40,68 @@ public class AccountManager {
 		
 		choice = BankingSystemMain.scan.nextInt();
 		BankingSystemMain.scan.nextLine();
+		
+		System.out.print("계좌번호 : ");
+		acc_num = BankingSystemMain.scan.nextLine();
+		System.out.print("이름 : ");
+		name = BankingSystemMain.scan.nextLine();
+		System.out.print("잔고 : ");
+		balnc = BankingSystemMain.scan.nextInt();
+		System.out.print("기본이자%(정수형태로입력):"); 
+		rate = BankingSystemMain.scan.nextInt();
+		BankingSystemMain.scan.nextLine(); 
+		
 		switch(choice) {
 		case 1:
-			makeNormalAccount();
+			accountToAdd = new NormalAccount(acc_num, name, balnc, rate);
 			break;
 		case 2:
-			makeSpecialAccount();
+			accountToAdd = new SpecialAccount(acc_num, name, balnc, rate);
 			break;
 		case 3 :
-			makeHighAccount();
+			System.out.print("신용등급(A,B,C등급):"); 
+			grade = BankingSystemMain.scan.next().charAt(0);
+			if (grade != 'A' && grade != 'a' &&
+		        grade != 'B' && grade != 'b' &&
+		        grade != 'C' && grade != 'c') {
+			        System.out.println("잘못된 신용등급입니다. A, B, C 중 하나만 입력하세요.");
+			        return;
+			    }
+			accountToAdd = 
+					new HighCreditAccount(acc_num, name, balnc, rate, grade);
+			BankingSystemMain.scan.nextLine();
 			break;
+		default : 
+			System.out.println("잘못된 선택입니다.");
+			return;
 		}
-		
-	}
-	public void makeNormalAccount() {
-		String acc_num, name;
-		int balnc, rate;
-		char choice;
-		
-		System.out.print("계좌번호 : ");
-		acc_num = BankingSystemMain.scan.nextLine();
-		System.out.print("이름 : ");
-		name = BankingSystemMain.scan.nextLine();
-		System.out.print("잔고 : ");
-		balnc = BankingSystemMain.scan.nextInt();
-		System.out.print("기본이자%(정수형태로입력):"); 
-		rate = BankingSystemMain.scan.nextInt();
-		NormalAccount normal = new NormalAccount(acc_num, name, balnc, rate);
-		
-		if(acc.add(normal)) {
-			System.out.println("계좌개설이 완료되었습니다.");	
-			acc.add(normal);
-		}
+		if (acc.add(accountToAdd)) {
+	        System.out.println("계좌개설이 완료되었습니다.");
+	    } 
 		else {
+	        returnNum = 1;
+	    }
+		if (returnNum == 1) {
 			System.out.print("중복 계좌번호입니다. 덮어쓸까요?(Y/N)");
 			choice = BankingSystemMain.scan.next().charAt(0);
 			BankingSystemMain.scan.nextLine();
-			switch(choice) {
-			case 'Y','y':
-				acc.remove(normal);
-			acc.add(normal);
-			System.out.println("기존정보에 덮어쓰기 하였습니다.");
-			break;
-			case 'N','n':
-				System.out.println("새로운 정보가 지워졌습니다.");
-			break;
-			}
-		}
-		System.out.println();
-	}
-	
-	public void makeHighAccount() {
-		String acc_num, name;
-		int balnc, rate;
-		char grade;
-		char choice;
-		
-		System.out.print("계좌번호 : ");
-		acc_num = BankingSystemMain.scan.nextLine();
-		
-		System.out.print("이름 : ");
-		name = BankingSystemMain.scan.nextLine();
-		
-		System.out.print("잔고 : ");
-		balnc = BankingSystemMain.scan.nextInt();
-		
-		System.out.print("기본이자%(정수형태로입력):"); 
-		rate = BankingSystemMain.scan.nextInt();
-		
-		System.out.print("신용등급(A,B,C등급):"); 
-		grade = BankingSystemMain.scan.next().charAt(0);
-		if (grade != 'A' && grade != 'a' &&
-	        grade != 'B' && grade != 'b' &&
-	        grade != 'C' && grade != 'c') {
-		        System.out.println("잘못된 신용등급입니다. A, B, C 중 하나만 입력하세요.");
-		        return;
-		    }
-		
-		HighCreditAccount high = 
-				new HighCreditAccount(acc_num, name, balnc, rate, grade);
-		
-		if(acc.add(high)) {
-			System.out.println("계좌개설이 완료되었습니다.");	
-			acc.add(high);
-		}
-		else {
-			System.out.print("중복 계좌번호입니다. 덮어쓸까요?(Y/N)");
-			choice = BankingSystemMain.scan.next().charAt(0);
-			BankingSystemMain.scan.nextLine();
-			switch(choice) {
-			case 'Y','y':
-				acc.remove(high);
-			acc.add(high);
-			System.out.println("기존정보에 덮어쓰기 하였습니다.");
-			break;
-			case 'N','n':
-				System.out.println("새로운 정보가 지워졌습니다.");
-			break;
-			}
-		}
-		System.out.println();
-	}
-	
-	public void makeSpecialAccount() {
-		String acc_num, name;
-		int balnc, rate;
-		char choice;
-		
-		System.out.print("계좌번호 : ");
-		acc_num = BankingSystemMain.scan.nextLine();
-		System.out.print("이름 : ");
-		name = BankingSystemMain.scan.nextLine();
-		System.out.print("잔고 : ");
-		balnc = BankingSystemMain.scan.nextInt();
-		System.out.print("기본이자%(정수형태로입력):"); 
-		rate = BankingSystemMain.scan.nextInt();
-		SpecialAccount special = new SpecialAccount(acc_num, name, balnc, rate);
-		
-		if(acc.add(special)) {
-			System.out.println("makeSpecialAccount");
-			System.out.println("계좌개설이 완료되었습니다.");	
-			acc.add(special);
-		}
-		else {
-			System.out.print("중복 계좌번호입니다. 덮어쓸까요?(Y/N)");
-			choice = BankingSystemMain.scan.next().charAt(0);
-			BankingSystemMain.scan.nextLine();
-			switch(choice) {
-			case 'Y','y':
-				acc.remove(special);
-			acc.add(special);
-			System.out.println("기존정보에 덮어쓰기 하였습니다.");
-			break;
-			case 'N','n':
-				System.out.println("새로운 정보가 지워졌습니다.");
-			break;
-			}
-		}
-		System.out.println();
-	}
-		
- 
-	public void showAccInfo() {
-		for(Account account : acc) {
-			if (account instanceof SpecialAccount) {
-				System.out.println("----------------------");
-				System.out.println("특판계좌");
-			}
-			else if (account instanceof HighCreditAccount) {
-				System.out.println("----------------------");
-				System.out.println("신용신뢰계좌");
+			if (choice == 'Y' || choice == 'y') {
+	            acc.remove(accountToAdd);
+	            acc.add(accountToAdd);
+	            System.out.println("기존정보에 덮어쓰기 하였습니다.");
+	        } 
+			else if(choice == 'N' || choice == 'n'){
+	            System.out.println("새로운 정보가 지워졌습니다.");
 			}
 			else {
-				System.out.println("----------------------");
-				System.out.println("보통계좌");
+				System.out.println("잘못된 선택입니다.");
 			}
+		}
+	}
+	
+	public void showAccInfo() {
+		for(Account account : acc) {
 			account.showAccInfo();
-			
 		}
 		System.out.println("----------------------");
 		System.out.println("전체계좌정보 출력이 완료되었습니다.");
@@ -212,37 +123,15 @@ public class AccountManager {
 				if(accNum.equals(account.getAcc_num())) {
 					
 					if (account instanceof SpecialAccount) {
-						
-						SpecialAccount special = (SpecialAccount) account;
-						account.setBalnc(special.cal_rate(account.getBalnc(),Money));
-						depositNum++;
-						System.out.println("SpecialAccount");
-						if (depositNum%2 ==0) {
-							System.out.println(depositNum);
-							account.setBalnc(account.getBalnc()+500);
-							System.out.printf("%d번째 입금. 축하금 500원을 지급합니다.",depositNum);
-							System.out.println("입금이 완료되었습니다.");
-						}
-						else {							
-							System.out.println(depositNum);
-							System.out.printf("%d번째 입금.",depositNum);
-							System.out.println("입금이 완료되었습니다.");
-						}
+						account.deposit(account, account.getBalnc(), Money);
 					}
 					
 					else if (account instanceof HighCreditAccount) {
-						HighCreditAccount high = (HighCreditAccount) account;
-						account.setBalnc(high.cal_rate(account.getBalnc(),Money));
-						System.out.println("HighCreditAccount");
-						System.out.println("입금이 완료되었습니다.");
+						account.deposit(account,account.getBalnc(), Money);
 					}
 					else if(account instanceof NormalAccount) {
-						NormalAccount normal = (NormalAccount) account;
-						account.setBalnc(normal.cal_rate(account.getBalnc(),Money));
-						System.out.println("NormalAccount");
-						System.out.println("입금이 완료되었습니다.");
+						account.deposit(account, account.getBalnc(), Money);
 					}
-					
 				}
 			}
 		}

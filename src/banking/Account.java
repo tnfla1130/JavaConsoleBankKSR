@@ -53,9 +53,8 @@ public abstract class Account implements Serializable {
 		System.out.println("잔고 : "+ balnc);
 	}
 	
-	public int cal_rate(int money, int deposit) {
-		int cal=0;
-		return cal;
+	public void deposit(Account account, int money, int deposit) {
+		
 	}
 	
 }
