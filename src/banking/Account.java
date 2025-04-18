@@ -1,5 +1,6 @@
 package banking;
 
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 public abstract class Account implements Serializable {
@@ -39,9 +40,14 @@ public abstract class Account implements Serializable {
 	public int hashCode() {
 	    return getAcc_num().hashCode();
 	}
+	public void printAcc(PrintWriter out) {
+		out.println("----------------------");
+		out.println("계좌번호 : "+acc_num);
+		out.println("고객이름 : "+ name);
+		out.println("잔고 : "+ balnc);
+	}
 	
 	public void showAccInfo() {
-		System.out.println("----------------------");
 		System.out.println("계좌번호 : "+acc_num);
 		System.out.println("고객이름 : "+ name);
 		System.out.println("잔고 : "+ balnc);

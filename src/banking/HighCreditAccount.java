@@ -1,5 +1,7 @@
 package banking;
 
+import java.io.PrintWriter;
+
 public class HighCreditAccount extends Account{
 
 	private int baseRate;
@@ -23,14 +25,19 @@ public class HighCreditAccount extends Account{
 	public void setGrade(char grade) {
 		this.grade = grade;
 	}
-
+	@Override
+	public void printAcc(PrintWriter out) {
+		super.printAcc(out);
+		out.println("기본이자 : "+ baseRate+ "%");
+		out.println("신용등급 : " + grade);
+		out.println("----------------------");
+	}
 	
 	@Override
 	public void showAccInfo() {
 		super.showAccInfo();
 		System.out.println("기본이자 : "+ baseRate+ "%");
 		System.out.println("신용등급 : " + grade);
-		System.out.println("----------------------");
 
 		
 	}

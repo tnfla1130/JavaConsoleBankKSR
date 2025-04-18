@@ -1,5 +1,7 @@
 package banking;
 
+import java.io.PrintWriter;
+
 public class NormalAccount extends Account{
 
 	private int baseRate;
@@ -12,13 +14,18 @@ public class NormalAccount extends Account{
 	public int getBaseRate() {
 		return baseRate;
 	}
-	
+	@Override
+	public void printAcc(PrintWriter out) {
+		super.printAcc(out);
+		out.println("기본이자 : "+ baseRate+ "%");
+		out.println("----------------------");
+	}
 	
 	@Override
 	public void showAccInfo() {
 		super.showAccInfo();
 		System.out.println("기본이자 : "+ baseRate+ "%");
-		System.out.println("----------------------");
+		
 	}
 	
 	
