@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ThreeByGame {
 
-	int randomCnt = 3;
+	private final int randomCnt = 100;
 	Random random = new Random();
 	char[][] arr = {
 		{'1','2','3'},
@@ -50,6 +50,11 @@ public class ThreeByGame {
 	public void beginGame() {
 		System.out.println("게임을 시작합니다! ");
 		while(true) {
+			if (isGoal()) {
+				System.out.println("퍼즐을 완성했습니다! 게임을 종료합니다.");
+				if (askRetry()) break; // break 내부 루프 → 다시 시작
+				else return;
+			}
 			System.out.println("(W: 위, A: 왼쪽, S: 아래, D: 오른쪽, Q: 종료)");
 			int newX = x, newY = y;
 			char choice = scan.next().charAt(0);
@@ -70,11 +75,6 @@ public class ThreeByGame {
 				resultBoard();
 			} else {
 				System.out.println("이동할 수 없습니다.");
-			}
-			if (isGoal()) {
-	            System.out.println("퍼즐을 완성했습니다! 게임을 종료합니다.");
-	            if (askRetry()) break; // break 내부 루프 → 다시 시작
-                else return;
 			}
 		}
 		resetGame();
@@ -118,10 +118,11 @@ public class ThreeByGame {
 	    return retry == 'y';
 	}
 	public void start() {
-		
 		suffleGame();
 		beginGame();
 	}
+	
+	
 	public static void main(String[] args) {
 		ThreeByGame game = new ThreeByGame();
 		game.start();

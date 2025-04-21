@@ -189,7 +189,7 @@ public class AccountManager {
 			System.out.println("음수를 출금할 수 없습니다.");
 		}
 		else if(Money%1000!=0) {
-			System.out.println("1000원 단위로만 입금이 가능합니다.");
+			System.out.println("1000원 단위로만 출금이 가능합니다.");
 		}
 	}
 	public void deleteAccount() {
@@ -240,7 +240,7 @@ public class AccountManager {
 			System.out.println("AccountInfo.obj 를 불러옵니다. 총 계좌 수:"+ acc.size());
 		}
 		catch (IOException e) {
-			System.out.println("예외발생");
+			System.out.println("obj 파일이 없습니다.");
 		} 
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -267,8 +267,13 @@ public class AccountManager {
 			}
 			break;
 		case 2:
-			as.interrupt();
-			System.out.println("자동저장 OFF");
+			if (as.isAlive()) {
+				as.interrupt();
+				System.out.println("자동저장 OFF");
+			}
+			else {
+				System.out.println("이미 자동저장이 꺼져있습니다.");
+			}
 			break;
 		}
 	}
