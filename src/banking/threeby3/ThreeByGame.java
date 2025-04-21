@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ThreeByGame {
 
-	int randomCnt = 50;
+	int randomCnt = 3;
 	Random random = new Random();
 	char[][] arr = {
 		{'1','2','3'},

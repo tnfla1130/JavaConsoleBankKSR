@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 
 public class NormalAccount extends Account{
 
-	private int baseRate;
+	int baseRate;
 	int money, deposit;
 	
 	public NormalAccount(String acc_num, String name, int balnc, int baseRate) {
@@ -24,7 +24,6 @@ public class NormalAccount extends Account{
 	@Override
 	public void showAccInfo() {
 		System.out.println("----------------------");
-		System.out.println("보통계좌");
 		super.showAccInfo();
 		System.out.println("기본이자 : "+ baseRate+ "%");
 		

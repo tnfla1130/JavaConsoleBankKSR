@@ -34,9 +34,8 @@ public class HighCreditAccount extends Account{
 	}
 	
 	@Override
-	public void showAccInfo() {
+	public void showAccInfo( ) {
 		System.out.println("----------------------");
-		System.out.println("신용신뢰계좌");
 		super.showAccInfo();
 		System.out.println("기본이자 : "+ baseRate+ "%");
 		System.out.println("신용등급 : " + grade);
